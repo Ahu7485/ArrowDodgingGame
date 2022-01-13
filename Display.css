@@ -1,0 +1,90 @@
+#startpage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(4, 4, 82);
+    overflow: auto;
+    animation: growin 1s 0s 1 forwards;
+}
+
+#startbutton {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    visibility: hidden;
+    height: 14%;
+    width: 28%;
+    align-items: center;
+    justify-content: center;
+    background: green;
+    color: white;
+    border-radius: 30px;
+    animation: buttonshow .5s 0s 1 forwards;
+    transition: ease-out .3s;
+    font-family: Nunito;
+}
+
+#startbutton:hover {
+    transform: translate(-52%, -55%);
+    box-shadow: 2px 5px black;
+}
+
+#gametitle {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size:75px;
+    font-family: Nunito;
+}
+
+#display {
+    background-color: azure;
+    border-style: solid;
+    border-color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+@keyframes growin {
+    from {
+        height: 0px;
+        width: 0px;
+    }
+
+    to {
+        height: 500px;
+        width: 800px;
+    }
+}
+@keyframes buttonshow {
+    from {
+        opacity: 0%;
+        visibility: hidden;
+        font-size: 0px;
+    }
+
+    to {
+        visibility: visible;
+        opacity: 100%;
+        font-size: 30px;
+    }
+}
+
+@keyframes buttonhover {
+    from {
+        height: 14%;
+        width: 28%;
+    }
+    to {
+        height: 15%;
+        width: 30%;
+    }
+}
