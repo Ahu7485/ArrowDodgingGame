@@ -1,6 +1,6 @@
 //Map Dimensions
-const mapwidth = 800;
-const mapheight = 500;
+const mapwidth = document.getElementById('display').width;
+const mapheight = document.getElementById('display').height;
 
 //ArrowKey Pressed and BorderLimitations
 var up = true;
