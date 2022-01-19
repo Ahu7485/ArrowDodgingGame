@@ -17,7 +17,8 @@ const playerspeed = 5;
 const playerradius = 25;
 var alive = true;
 var score = 0;
-var maxtriangles = 1;
+var maxobstacles = 1;
+var timetoincreaseobstacles = 1;
 
 var trianglespeed = 2.5;
 var triangles = [];
@@ -108,7 +109,7 @@ function drawplayer(player) {
 }
 
 function displayframes() {
-    score++;
+    score++; 
     scorehtmml.innerHTML = score;
     var newobstacles = [];
     drawplayer(player);
@@ -122,8 +123,13 @@ function displayframes() {
         drawobstacle(triangle);
     }
     triangles = [...newobstacles];
-    if(triangles.length < 5){
+    if(triangles.length < maxobstacles){
         makeobstacle();
+    }
+    if(score/timetoincreaseobstacles == 1){
+        console.log(score/timetoincreaseobstacles);
+        maxobstacles *= 2;
+        timetoincreaseobstacles *= 10;
     }
     console.log(triangles.length);
     player.move();
