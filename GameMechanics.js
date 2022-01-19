@@ -151,6 +151,8 @@ function begingame() {
     player.x = mapwidth/2;
     player.y = mapheight/2;
     score = 0;
+    maxobstacles = 1;
+    timetoincreaseobstacles = 1;
     window.requestAnimationFrame(displayframes);
 }
 
