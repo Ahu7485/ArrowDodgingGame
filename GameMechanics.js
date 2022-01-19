@@ -16,11 +16,14 @@ var rightpressed = false;
 const playerspeed = 5;
 const playerradius = 25;
 var alive = true;
+var score = 0;
+var maxtriangles = 1;
 
 var trianglespeed = 2.5;
 var triangles = [];
 
 const ctx = document.getElementById('display').getContext('2d');
+const scorehtmml = document.getElementById('score');
 
 var player = {
     x: mapwidth/2,
@@ -47,8 +50,15 @@ var player = {
 
 
 function makeobstacle() {
-    var width = Math.floor(Math.random()*2) === 1 ? 0 : mapwidth;
-    var height = Math.floor(Math.random()*2) === 1 ? 0 : mapheight;
+    //randomly selects which side to come out from
+    const randnum1 = Math.floor(Math.random()*2);
+    if(randnum1 == 1){
+        var width = Math.floor(Math.random()*mapwidth);
+        var height = Math.floor(Math.random()*2) === 1 ? 0 : mapheight;
+    }else{
+        var width = Math.floor(Math.random()*2) === 1 ? 0 : mapwidth;
+        var height = Math.floor(Math.random()*mapheight);
+    }
     triangles[triangles.length] = {
         x: width,
         y: height,
@@ -89,7 +99,7 @@ function drawobstacle(obstacle) {
 }
 
 
-function drawplayer(ctx, player) {
+function drawplayer(player) {
     ctx.beginPath();
     ctx.arc(player.x, player.y, 25, 0, 2*Math.PI, false);
     ctx.linewidth = 3;
@@ -98,8 +108,10 @@ function drawplayer(ctx, player) {
 }
 
 function displayframes() {
+    score++;
+    scorehtmml.innerHTML = score;
     var newobstacles = [];
-    drawplayer(ctx, player);
+    drawplayer(player);
     player.bordercheck();
     for(let triangle of triangles){
         moveobstacle(triangle);
@@ -132,6 +144,7 @@ function begingame() {
     alive = true;
     player.x = mapwidth/2;
     player.y = mapheight/2;
+    score = 0;
     window.requestAnimationFrame(displayframes);
 }
 
