@@ -13,16 +13,18 @@ var leftpressed = false;
 var rightpressed = false;
 
 //Game Rules
-const playerspeed = 5;
+const playerspeed = 2.5;
 const playerradius = 25;
 var alive = true;
-var triangle = [];
+
+var trianglespeed = 2.5;
+var triangles = [];
 
 const ctx = document.getElementById('display').getContext('2d');
 
 var player = {
-    x: 400,
-    y: 250,
+    x: mapwidth/2,
+    y: mapheight/2,
 
     bordercheck: function() {
         if(player.x + playerradius >= mapwidth)     right = false;
@@ -43,11 +45,51 @@ var player = {
     }
 }
 
-var triangle = {
+
+function makeobstacle() {
+    var width = Math.floor(Math.random()*2) === 1 ? 0 : mapwidth;
+    var height = Math.floor(Math.random()*2) === 1 ? 0 : mapheight;
+    triangles[triangles.length] = {
+        x: width,
+        y: height,
+        dx: (player.x - width)/(mapwidth / trianglespeed),
+        dy: (player.y - height)/(mapheight / trianglespeed),
+    }
+}
+//Checks if Collision
+function collisioncheck(obstacle) {
+    if(Math.abs(player.x - obstacle.x) <= playerradius && Math.abs(player.y - obstacle.y) <= playerradius)    return true;
+    else return false;
+}
+
+function obstaclebordercheck(obstacle){
+    if(obstacle.x >= mapwidth || obstacle.x <= 0 || obstacle.y >= mapheight || obstacle.y <= 0) 
+        return false;
+    else return true;
+}
+
+function moveobstacle(obstacle) {
+    obstacle.y += obstacle.dy;
+    obstacle.x += obstacle.dx*1.5;
+}
+
+function drawobstacle(obstacle) {
+    var obstacleangle = Math.atan2(obstacle.dy, obstacle.dx);
+    ctx.translate(obstacle.x, obstacle.y);
+    ctx.rotate(obstacleangle);
+    ctx.translate(-obstacle.x, -obstacle.y);
+    ctx.fillStyle = "#00000";
+    ctx.beginPath();
+    ctx.moveTo(obstacle.x, obstacle.y);
+    ctx.lineTo(obstacle.x - 15, obstacle.y + 5);
+    ctx.lineTo(obstacle.x - 15, obstacle.y - 5);
+    ctx.lineTo(obstacle.x, obstacle.y);
+    ctx.fill();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
 
 
-function draw(ctx, player) {
+function drawplayer(ctx, player) {
     ctx.beginPath();
     ctx.arc(player.x, player.y, 25, 0, 2*Math.PI, false);
     ctx.linewidth = 3;
@@ -56,15 +98,31 @@ function draw(ctx, player) {
 }
 
 function displayframes() {
-    draw(ctx, player)
+    var newobstacles = [];
+    drawplayer(ctx, player);
     player.bordercheck();
+    for(let triangle of triangles){
+        moveobstacle(triangle);
+        if(collisioncheck(triangle)) {alive = false;}
+        if(obstaclebordercheck(triangle)) {
+            newobstacles.push(triangle);
+        }
+        drawobstacle(triangle);
+    }
+    triangles = [...newobstacles];
+    if(triangles.length < 20){
+        makeobstacle();
+    }
+    console.log(triangles.length);
     player.move();
     setTimeout(() => {
         ctx.clearRect(0, 0, mapwidth, mapheight);
     }, 30);
-
     if(alive){
         window.requestAnimationFrame(displayframes);
+    }else{
+        triangles = [];
+        setTimeout(reshowstartpage(), 2000);
     }
 }
 
