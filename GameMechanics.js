@@ -13,7 +13,7 @@ var leftpressed = false;
 var rightpressed = false;
 
 //Game Rules
-const playerspeed = 2.5;
+const playerspeed = 5;
 const playerradius = 25;
 var alive = true;
 
@@ -110,7 +110,7 @@ function displayframes() {
         drawobstacle(triangle);
     }
     triangles = [...newobstacles];
-    if(triangles.length < 20){
+    if(triangles.length < 5){
         makeobstacle();
     }
     console.log(triangles.length);
@@ -130,8 +130,8 @@ function displayframes() {
 
 function begingame() {
     alive = true;
-    player.x = 400;
-    player.y = 250;
+    player.x = mapwidth/2;
+    player.y = mapheight/2;
     window.requestAnimationFrame(displayframes);
 }
 
