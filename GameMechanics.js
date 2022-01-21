@@ -161,15 +161,19 @@ function begingame() {
 
 window.addEventListener('keydown', (Event) => {
     switch (Event.key) {
+        case "a":
         case "ArrowLeft":
             leftpressed = true;
             break;
+        case "d":
         case "ArrowRight":
             rightpressed = true;
             break;
+        case "w":
         case "ArrowUp":
             uppressed = true;
             break;
+        case "s":
         case "ArrowDown":
             downpressed = true;
             break;
@@ -178,15 +182,19 @@ window.addEventListener('keydown', (Event) => {
 
 window.addEventListener('keyup', (Event) => {
     switch (Event.key) {
+        case "a":
         case "ArrowLeft":
             leftpressed = false;
             break;
+        case "d":
         case "ArrowRight":
             rightpressed = false;
             break;
+        case "w":
         case "ArrowUp":
             uppressed = false;
             break;
+        case "s":
         case "ArrowDown":
             downpressed = false;
             break;
