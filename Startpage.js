@@ -13,9 +13,9 @@ function collapsestartpage() {
         duration: 1000,
         fill: "forwards"
       });
+      startbutton.disabled = true;
       setTimeout(() => {
         startpage.style.display= "hidden";
-        startbutton.disabled = true;
         if(!firstattempt) return {};
         startbutton.innerHTML = "Retry";
         firstattempt = false;
