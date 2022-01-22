@@ -10,14 +10,24 @@
 </head>
 <body>
     <div id="startpage">
-        <p id="gametitle">Da Gam</p>
+        <p id="gametitle">Arrow Game</p>
         <button id="startbutton" onclick="start();">
             START
         </button>
     </div>
     
     <canvas id="display" width="800" height="500">Canvas Dont Work</canvas>
-    <h1 id="score"></h1>
+    <div class="scoreboard-wrapper">
+        <div class="score-wrapper">
+            <span>Score: </span>
+            <span id="score"></span>
+        </div>
+
+        <div class="level-wrapper">
+            <span>Level: </span>
+            <span id="level"></span>
+        </div>
+    </div>
 </body>
 <script src="Startpage.js"></script>
 <script src="GameMechanics.js"></script>

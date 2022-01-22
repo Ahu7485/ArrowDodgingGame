@@ -1,87 +1,110 @@
-//Map Dimensions
-const mapwidth = document.getElementById('display').width;
-const mapheight = document.getElementById('display').height;
+// Map Dimensions
+const map_width = document.getElementById('display').width;
+const map_height = document.getElementById('display').height;
 
-//ArrowKey Pressed and BorderLimitations
-var up = true;
-var down = true;
-var left = true;
-var right = true;
-var uppressed = false;
-var downpressed = false;
-var leftpressed = false;
-var rightpressed = false;
+// Track whether we can up/down/left/right
+var allow_up = true;
+var allow_down = true;
+var allow_left = true;
+var allow_right = true;
+// Signifies whether the up/down/left/right arrow was pressed.
+// We save these into a variables that can be checked later so 
+// we can check multiple inputs at once (so we can go in 8 directions, 
+// not just 4)
+var up_pressed = false;
+var down_pressed = false;
+var left_pressed = false;
+var right_pressed = false;
 
-//Game Rules
-const playerspeed = 5;
-const playerradius = 25;
+// Game Rules
+const player_speed = 5;
+const player_radius = 25;
 var alive = true;
 var score = 0;
-var maxobstacles = 1;
-var timetoincreaseobstacles = 1;
+var max_obstacles = 1;
+var score_to_increase_obstacles = 100;
+var triangle_speed = 2.5;
+var current_level = 1;
 
-var trianglespeed = 2.5;
+// Store the state of all obstacles. 
 var triangles = [];
 
 const ctx = document.getElementById('display').getContext('2d');
-const scorehtmml = document.getElementById('score');
+const score_html = document.getElementById('score');
+const level_html = document.getElementById('level');
 
 var player = {
-    x: mapwidth/2,
-    y: mapheight/2,
+    // Start the player in the middle of the map. 
+    x: map_width / 2,
+    y: map_height / 2,
 
+    // Check whether the player is on the border
+    // of the playable bounds. 
     bordercheck: function() {
-        if(player.x + playerradius >= mapwidth)     right = false;
-        else    right = true;
-        if(player.x - playerradius <= 0)            left = false;
-        else    left = true;
-        if(player.y + playerradius >= mapheight)    down = false;
-        else    down = true;
-        if(player.y - playerradius <= 0)            up = false;
-        else    up = true;
+        allow_right = (player.x + player_radius < map_width);
+        allow_left = (player.x - player_radius > 0);
+        allow_down = (player.y + player_radius < map_height);
+        allow_up = (player.y - player_radius > 0);
     },
 
     move: function() {
-        if(left && leftpressed) {player.x -= playerspeed;}
-        if(right && rightpressed) {player.x += playerspeed;}
-        if(up && uppressed) {player.y -= playerspeed;}
-        if(down && downpressed) {player.y += playerspeed;}
+        if (allow_left && left_pressed) {
+            player.x -= player_speed;
+        }
+        if (allow_right && right_pressed) {
+            player.x += player_speed;
+        }
+        if (allow_up && up_pressed) {
+            player.y -= player_speed;
+        }
+        if (allow_down && down_pressed) {
+            player.y += player_speed;
+        }
     }
 }
 
 
 function makeobstacle() {
-    //randomly selects which side to come out from
-    const randnum1 = Math.floor(Math.random()*2);
-    if(randnum1 == 1){
-        var width = Math.floor(Math.random()*mapwidth);
-        var height = Math.floor(Math.random()*2) === 1 ? 0 : mapheight;
-    }else{
-        var width = Math.floor(Math.random()*2) === 1 ? 0 : mapwidth;
-        var height = Math.floor(Math.random()*mapheight);
+    // We randomly generate a number, either 0 or 1. Depending on the value, we
+    // determine whether the arrow is right-to-left/left-to-right, and top-to-bottom
+    // or bottom-to-top.  
+    const randnum1 = Math.floor(Math.random() * 2);
+    if (randnum1 == 1) {
+        var width = Math.floor(Math.random() * map_width);
+        var height = Math.floor(Math.random() * 2) === 1 ? 0 : map_height;
+    } else {
+        var width = Math.floor(Math.random() * 2) === 1 ? 0 : map_width;
+        var height = Math.floor(Math.random() * map_height);
     }
+
+    // Save this to our obstacles list.
     triangles[triangles.length] = {
         x: width,
         y: height,
-        dx: (player.x - width)/(mapwidth / trianglespeed),
-        dy: (player.y - height)/(mapheight / trianglespeed),
+        dx: (player.x - width) / (map_width / triangle_speed),
+        dy: (player.y - height) / (map_height / triangle_speed),
     }
 }
-//Checks if Collision
+// Given a single obstacle, returns true if the player's hitbox has 
+// collided with the obstacle.
 function collisioncheck(obstacle) {
-    if(Math.abs(player.x - obstacle.x) <= playerradius && Math.abs(player.y - obstacle.y) <= playerradius)    return true;
-    else return false;
+    return (Math.abs(player.x - obstacle.x) <= player_radius &&
+        Math.abs(player.y - obstacle.y) <= player_radius);
 }
 
-function obstaclebordercheck(obstacle){
-    if(obstacle.x >= mapwidth || obstacle.x <= 0 || obstacle.y >= mapheight || obstacle.y <= 0) 
+// Checks whether an obstacle is at a border.
+function obstaclebordercheck(obstacle) {
+    if (obstacle.x >= map_width || obstacle.x <= 0 ||
+        obstacle.y >= map_height || obstacle.y <= 0) {
         return false;
-    else return true;
+    } else {
+        return true;
+    }
 }
 
 function moveobstacle(obstacle) {
     obstacle.y += obstacle.dy;
-    obstacle.x += obstacle.dx*1.5;
+    obstacle.x += obstacle.dx * 1.5;
 }
 
 function drawobstacle(obstacle) {
@@ -102,43 +125,51 @@ function drawobstacle(obstacle) {
 
 function drawplayer(player) {
     ctx.beginPath();
-    ctx.arc(player.x, player.y, 25, 0, 2*Math.PI, false);
+    ctx.arc(player.x, player.y, 25, 0, 2 * Math.PI, false);
     ctx.linewidth = 3;
     ctx.strokeStyle = 'black';
     ctx.stroke();
 }
 
 function displayframes() {
-    score++; 
-    scorehtmml.innerHTML = score;
+    // Clear the old board.
+    ctx.clearRect(0, 0, map_width, map_height);
+
+    score++;
+    // Update the score and level counters on the 
+    // page.
+    score_html.innerHTML = score;
+    level_html.innerHTML = current_level;
+
     var newobstacles = [];
     drawplayer(player);
     player.bordercheck();
-    for(let triangle of triangles){
+    for (let triangle of triangles) {
         moveobstacle(triangle);
-        if(collisioncheck(triangle)) {alive = false;}
-        if(obstaclebordercheck(triangle)) {
+        if (collisioncheck(triangle)) {
+            alive = false;
+        }
+        if (obstaclebordercheck(triangle)) {
             newobstacles.push(triangle);
         }
         drawobstacle(triangle);
     }
     triangles = [...newobstacles];
-    if(triangles.length < maxobstacles){
+    if (triangles.length < max_obstacles) {
         makeobstacle();
     }
-    if(score/timetoincreaseobstacles == 1){
-        console.log(score/timetoincreaseobstacles);
-        maxobstacles *= 2;
-        timetoincreaseobstacles *= 10;
+
+    if (score > score_to_increase_obstacles) {
+        current_level += 1;
+        max_obstacles += 1;
+        score_to_increase_obstacles *= 1.75;
     }
+
     console.log(triangles.length);
     player.move();
-    setTimeout(() => {
-        ctx.clearRect(0, 0, mapwidth, mapheight);
-    }, 30);
-    if(alive){
+    if (alive) {
         window.requestAnimationFrame(displayframes);
-    }else{
+    } else {
         triangles = [];
         setTimeout(reshowstartpage(), 2000);
     }
@@ -148,34 +179,35 @@ function displayframes() {
 
 function begingame() {
     alive = true;
-    player.x = mapwidth/2;
-    player.y = mapheight/2;
+    player.x = map_width / 2;
+    player.y = map_height / 2;
     score = 0;
-    maxobstacles = 1;
-    timetoincreaseobstacles = 1;
+    current_level = 1;
+    max_obstacles = 1;
+    time_to_increase_obstacles = 1;
+    score_to_increase_obstacles = 100;
     window.requestAnimationFrame(displayframes);
 }
 
 
-//Arrow Key Listenter
-
+//Arrow Key Listener
 window.addEventListener('keydown', (Event) => {
     switch (Event.key) {
         case "a":
         case "ArrowLeft":
-            leftpressed = true;
+            left_pressed = true;
             break;
         case "d":
         case "ArrowRight":
-            rightpressed = true;
+            right_pressed = true;
             break;
         case "w":
         case "ArrowUp":
-            uppressed = true;
+            up_pressed = true;
             break;
         case "s":
         case "ArrowDown":
-            downpressed = true;
+            down_pressed = true;
             break;
     }
 })
@@ -184,19 +216,19 @@ window.addEventListener('keyup', (Event) => {
     switch (Event.key) {
         case "a":
         case "ArrowLeft":
-            leftpressed = false;
+            left_pressed = false;
             break;
         case "d":
         case "ArrowRight":
-            rightpressed = false;
+            right_pressed = false;
             break;
         case "w":
         case "ArrowUp":
-            uppressed = false;
+            up_pressed = false;
             break;
         case "s":
         case "ArrowDown":
-            downpressed = false;
+            down_pressed = false;
             break;
     }
 })

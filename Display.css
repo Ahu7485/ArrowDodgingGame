@@ -1,9 +1,23 @@
+/* 
+Color Scheme:
+--gainsboro: #d8dbe2ff;
+--light-steel-blue: #a9bcd0ff;
+--cadet-blue: #58a4b0ff;
+--charcoal: #373f51ff;
+--raisin-black: #1b1b1eff;
+*/
+html {
+    width: 100%;
+    height: 100%;
+    background-color: #373f51ff;
+}
+
 #startpage {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgb(4, 4, 82);
+    background-color: #a9bcd0ff;
     overflow: auto;
     animation: growin 1s 0s 1 forwards;
 }
@@ -14,13 +28,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
     visibility: hidden;
     height: 14%;
     width: 28%;
     align-items: center;
     justify-content: center;
-    background: green;
+    background: #373f51ff;
     color: white;
     border-radius: 30px;
     animation: buttonshow .5s 0s 1 forwards;
@@ -51,6 +64,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: -1;
+}
+
+.scoreboard-wrapper {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 2em;
+    color:  #a9bcd0ff;
 }
 
 @keyframes growin {
