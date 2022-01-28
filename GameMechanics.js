@@ -23,11 +23,11 @@ var alive = true;
 var score = 0;
 var max_obstacles = 1;
 var score_to_increase_obstacles = 100;
-var triangle_speed = 2.5;
+var obstacle_speed = 2.5;
 var current_level = 1;
 
 // Store the state of all obstacles. 
-var triangles = [];
+var obstacles = [];
 
 const ctx = document.getElementById('display').getContext('2d');
 const score_html = document.getElementById('score');
@@ -78,11 +78,11 @@ function makeobstacle() {
     }
 
     // Save this to our obstacles list.
-    triangles[triangles.length] = {
+    obstacles[obstacles.length] = {
         x: width,
         y: height,
-        dx: (player.x - width) / (map_width / triangle_speed),
-        dy: (player.y - height) / (map_height / triangle_speed),
+        dx: (player.x - width) / (map_width / obstacle_speed),
+        dy: (player.y - height) / (map_height / obstacle_speed),
     }
 }
 // Given a single obstacle, returns true if the player's hitbox has 
@@ -144,18 +144,19 @@ function displayframes() {
     var newobstacles = [];
     drawplayer(player);
     player.bordercheck();
-    for (let triangle of triangles) {
-        moveobstacle(triangle);
-        if (collisioncheck(triangle)) {
+    //For each obstacle delete 
+    for (let obstacle of obstacles) {
+        moveobstacle(obstacle);
+        if (collisioncheck(obstacle)) {
             alive = false;
         }
-        if (obstaclebordercheck(triangle)) {
-            newobstacles.push(triangle);
+        if (obstaclebordercheck(obstacle)) {
+            newobstacles.push(obstacle);
         }
-        drawobstacle(triangle);
+        drawobstacle(obstacle);
     }
-    triangles = [...newobstacles];
-    if (triangles.length < max_obstacles) {
+    obstacles = [...newobstacles];
+    if (obstacles.length < max_obstacles) {
         makeobstacle();
     }
 
@@ -165,12 +166,11 @@ function displayframes() {
         score_to_increase_obstacles *= 1.75;
     }
 
-    console.log(triangles.length);
     player.move();
     if (alive) {
         window.requestAnimationFrame(displayframes);
     } else {
-        triangles = [];
+        obstacles = [];
         setTimeout(reshowstartpage(), 2000);
     }
 }
