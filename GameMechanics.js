@@ -26,6 +26,10 @@ var score_to_increase_obstacles = 100;
 var obstacle_speed = 2.5;
 var current_level = 1;
 
+//Constant Frame Rate to make difficulty same for players
+//across all different kinds of hardware
+const Frames_per_second = 144;
+
 // Store the state of all obstacles. 
 var obstacles = [];
 
@@ -144,7 +148,9 @@ function displayframes() {
     var newobstacles = [];
     drawplayer(player);
     player.bordercheck();
-    //For each obstacle delete 
+    
+    //In loop deletes obstacle if it exceeds border,
+    //Ends game if obstacle hits circle
     for (let obstacle of obstacles) {
         moveobstacle(obstacle);
         if (collisioncheck(obstacle)) {
@@ -160,6 +166,8 @@ function displayframes() {
         makeobstacle();
     }
 
+    //Ingame Level System
+    //Time to increase Level increases exponentially
     if (score > score_to_increase_obstacles) {
         current_level += 1;
         max_obstacles += 1;
@@ -167,12 +175,14 @@ function displayframes() {
     }
 
     player.move();
-    if (alive) {
-        window.requestAnimationFrame(displayframes);
-    } else {
-        obstacles = [];
-        setTimeout(reshowstartpage(), 2000);
-    }
+    setTimeout ( () => {
+        if (alive) {
+            window.requestAnimationFrame(displayframes);
+        } else {
+            obstacles = [];
+            setTimeout(reshowstartpage(), 2000);
+        }
+    }, 1000 / Frames_per_second );
 }
 
 

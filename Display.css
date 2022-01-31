@@ -55,21 +55,24 @@ html {
     font-family: Nunito;
 }
 
+#displayWrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    margin-top: 1em;
+}
+
 #display {
     background-color: azure;
     border-style: solid;
     border-color: black;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
 }
 
 .scoreboard-wrapper {
     font-size: 2em;
     text-align: center;
-    margin-top: 2em;
+    margin-top: 3em;
     color:  #a9bcd0ff;
 }
 

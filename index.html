@@ -9,14 +9,13 @@
     <link rel="stylesheet" href="Display.css">
 </head>
 <body>
-    <div id="startpage">
-        <p id="gametitle">Arrow Game</p>
-        <button id="startbutton" onclick="start();">
-            START
-        </button>
+    <div class="login-wrapper">
+        <ul>
+            <li>Hello</li>
+            
+        </ul>
     </div>
-    
-    <canvas id="display" width="800" height="500">Canvas Dont Work</canvas>
+
     <div class="scoreboard-wrapper">
         <div class="score-wrapper">
             <span>Score: </span>
@@ -28,6 +27,17 @@
             <span id="level"></span>
         </div>
     </div>
+
+    <div id = "displayWrapper">
+        <div id="startpage">
+            <p id="gametitle">Arrow Game</p>
+            <button id="startbutton" onclick="start();">
+                START
+            </button>
+        </div>
+        <canvas id="display" width="800" height="500">Canvas Dont Work</canvas>
+    </div>
+    
 </body>
 <script src="Startpage.js"></script>
 <script src="GameMechanics.js"></script>
