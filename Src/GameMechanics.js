@@ -130,6 +130,7 @@ function drawobstacle(obstacle) {
 function drawplayer(player) {
     ctx.beginPath();
     ctx.arc(player.x, player.y, 25, 0, 2 * Math.PI, false);
+    ctx.fillStyle = "#2098D1";
     ctx.fill();
     ctx.linewidth = 3;
     ctx.strokeStyle = 'black';
@@ -184,6 +185,8 @@ function displayframes() {
             window.requestAnimationFrame(displayframes);
         } else {
             obstacles = [];
+            document.cookie = "highestscore=" + score;
+            document.getElementById("highestScore").innerHTML = score;
             setTimeout(reshowstartpage(), 2000);
         }
     }, 1000 / Frames_per_second );

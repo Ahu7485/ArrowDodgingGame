@@ -78,6 +78,42 @@ html {
     margin-top: 1em;
 }
 
+#tutorial {
+    position:absolute;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+    font-size: 40px;
+    font-family: Nunito;
+}
+
+
+.highestScore-Wrapper {
+    position: absolute;
+    font-size: 40px;
+    font-family:  Nunito;
+    width: 20%;
+    margin-top: 5em;
+    margin-left: 1em;
+    text-align: center;
+}
+
+#highestScore {
+    font-size: 60px;
+}
+
+@media (max-width: 1500px) {
+    .highestScore-Wrapper {
+        visibility: hidden;
+    }
+}
+
+@media (max-width: 750px) {
+    #tutorial {
+        visibility: hidden;
+    }
+}
+
 @keyframes growin {
     from {
         height: 0px;
