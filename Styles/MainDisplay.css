@@ -1,0 +1,116 @@
+/* Color Scheme */
+:root {
+    --powder-blue: #bee9e8ff;
+    --maximum-blue: #62b6cbff;
+    --indigo-dye: #1b4965ff;
+    --columbia-blue: #cae9ffff;
+    --carolina-blue: #5fa8d3ff;
+    height: 100%;
+    width: 100%;
+}
+
+
+html {
+    background-color: var(--columbia-blue);
+}
+
+#startpage {
+    position: absolute;
+    top: 51.1%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--maximum-blue);
+    overflow: auto;
+    animation: growin 1s 0s 1 forwards;
+}
+
+#startpage #startbutton {
+    display: flex;      
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    height: 14%;
+    width: 28%;
+    align-items: center;
+    justify-content: center;
+    background: var(--indigo-dye);
+    color: white;
+    border-radius: 30px;
+    animation: buttonshow .5s 0s 1 forwards;
+    transition: ease-out .3s;
+    font-family: Nunito;
+}
+
+#startbutton:hover {
+    transform: translate(-52%, -55%);
+    box-shadow: 2px 5px black;
+}
+
+#gametitle {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size:75px;
+    font-family: Nunito;
+}
+
+#displayWrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    margin-top: 1em;
+}
+
+#display {
+    margin-top: 1em;
+    background-color: azure;
+    border-style: solid;
+    border-color: black;
+}
+
+.scoreboard-wrapper {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 1em;
+}
+
+@keyframes growin {
+    from {
+        height: 0px;
+        width: 0px;
+    }
+
+    to {
+        height: 500px;
+        width: 800px;
+    }
+}
+
+@keyframes buttonshow {
+    from {
+        opacity: 0%;
+        visibility: hidden;
+        font-size: 0px;
+    }
+
+    to {
+        visibility: visible;
+        opacity: 100%;
+        font-size: 30px;
+    }
+}
+
+@keyframes buttonhover {
+    from {
+        height: 14%;
+        width: 28%;
+    }
+    to {
+        height: 15%;
+        width: 30%;
+    }
+}
