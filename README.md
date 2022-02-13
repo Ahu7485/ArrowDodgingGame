@@ -1,6 +1,6 @@
 # Arrow Game
 
-    https://ailun-hu.github.io/Arrow-Game/
+    <https://ailun-hu.github.io/Arrow-Game/>
 
 ## How To Play
 
