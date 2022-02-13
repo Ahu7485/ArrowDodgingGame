@@ -17,18 +17,18 @@ var left_pressed = false;
 var right_pressed = false;
 
 // Game Rules
-const player_speed = 5;
+const player_speed = 10;
 const player_radius = 25;
 var alive = true;
 var score = 0;
 var max_obstacles = 1;
 var score_to_increase_obstacles = 100;
-var obstacle_speed = 2.5;
+var obstacle_speed = 10;
 var current_level = 1;
 
 //Constant Frame Rate to make difficulty same for players
 //across all different kinds of hardware
-const Frames_per_second = 144;
+const Frames_per_second = 60;
 
 // Store the state of all obstacles. 
 var obstacles = [];
@@ -44,7 +44,7 @@ var player = {
 
     // Check whether the player is on the border
     // of the playable bounds. 
-    bordercheck: function() {
+    borderCheck: function() {
         allow_right = (player.x + player_radius < map_width);
         allow_left = (player.x - player_radius > 0);
         allow_down = (player.y + player_radius < map_height);
@@ -68,7 +68,7 @@ var player = {
 }
 
 
-function makeobstacle() {
+function makeObstable() {
     // We randomly generate a number, either 0 or 1. Depending on the value, we
     // determine whether the arrow is right-to-left/left-to-right, and top-to-bottom
     // or bottom-to-top.  
@@ -91,13 +91,13 @@ function makeobstacle() {
 }
 // Given a single obstacle, returns true if the player's hitbox has 
 // collided with the obstacle.
-function collisioncheck(obstacle) {
+function collisionCheck(obstacle) {
     return (Math.abs(player.x - obstacle.x) <= player_radius &&
         Math.abs(player.y - obstacle.y) <= player_radius);
 }
 
 // Checks whether an obstacle is at a border.
-function obstaclebordercheck(obstacle) {
+function obstacleBorderCheck(obstacle) {
     if (obstacle.x >= map_width || obstacle.x <= 0 ||
         obstacle.y >= map_height || obstacle.y <= 0) {
         return false;
@@ -106,7 +106,7 @@ function obstaclebordercheck(obstacle) {
     }
 }
 
-function moveobstacle(obstacle) {
+function moveObstacle(obstacle) {
     obstacle.y += obstacle.dy;
     obstacle.x += obstacle.dx * 1.5;
 }
@@ -130,16 +130,21 @@ function drawobstacle(obstacle) {
 function drawplayer(player) {
     ctx.beginPath();
     ctx.arc(player.x, player.y, 25, 0, 2 * Math.PI, false);
+    ctx.fillStyle = "#2098D1";
+    ctx.fill();
     ctx.linewidth = 3;
     ctx.strokeStyle = 'black';
     ctx.stroke();
 }
 
+//-----------------------//
+//-----Loop Function-----//
+//-----------------------//
 function displayframes() {
     // Clear the old board.
     ctx.clearRect(0, 0, map_width, map_height);
 
-    score++;
+    score+=2;
     // Update the score and level counters on the 
     // page.
     score_html.innerHTML = score;
@@ -147,23 +152,23 @@ function displayframes() {
 
     var newobstacles = [];
     drawplayer(player);
-    player.bordercheck();
+    player.borderCheck();
     
     //In loop deletes obstacle if it exceeds border,
     //Ends game if obstacle hits circle
     for (let obstacle of obstacles) {
-        moveobstacle(obstacle);
-        if (collisioncheck(obstacle)) {
+        moveObstacle(obstacle);
+        if (collisionCheck(obstacle)) {
             alive = false;
         }
-        if (obstaclebordercheck(obstacle)) {
+        if (obstacleBorderCheck(obstacle)) {
             newobstacles.push(obstacle);
         }
         drawobstacle(obstacle);
     }
     obstacles = [...newobstacles];
     if (obstacles.length < max_obstacles) {
-        makeobstacle();
+        makeObstable();
     }
 
     //Ingame Level System
@@ -180,13 +185,16 @@ function displayframes() {
             window.requestAnimationFrame(displayframes);
         } else {
             obstacles = [];
+            document.cookie = "highestscore=" + score;
+            document.getElementById("highestScore").innerHTML = score;
             setTimeout(reshowstartpage(), 2000);
         }
     }, 1000 / Frames_per_second );
 }
 
-
-
+//-----------------------//
+//-----Main Function-----//
+//-----------------------//
 function begingame() {
     alive = true;
     player.x = map_width / 2;
