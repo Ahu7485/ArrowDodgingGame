@@ -17,7 +17,7 @@ Added for functions in ../Src/userlogin.js */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none; 
-    
+
     position: static;
     display: block;
     padding-top: 8px;
@@ -68,4 +68,4 @@ Added for functions in ../Src/userlogin.js */
 .user-info-button:hover:before, .user-info-button:focus:before, .user-info-button:active:before {
     -webkit-transform: scale(2);
     transform: scale(2);
-  }
+}
