@@ -185,8 +185,11 @@ function displayframes() {
             window.requestAnimationFrame(displayframes);
         } else {
             obstacles = [];
-            document.cookie = "highestscore=" + score;
-            document.getElementById("highestScore").innerHTML = score;
+            let highestscore = getdata("highestscore");
+            if( highestscore <= score){
+                document.cookie = "highestscore=" + score;
+                document.getElementById("highestScore").innerHTML = score;
+            }
             setTimeout(reshowstartpage(), 2000);
         }
     }, 1000 / Frames_per_second );
