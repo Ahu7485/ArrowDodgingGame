@@ -14,6 +14,7 @@ Added for functions in ../Src/userlogin.js */
 }
 
 .login-wrapper .user-info-button {
+    font-family: Nunito;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none; 

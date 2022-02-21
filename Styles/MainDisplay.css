@@ -12,6 +12,7 @@
 
 html {
     background-color: var(--columbia-blue);
+    overflow-x: hidden;
 }
 
 #startpage {
@@ -20,7 +21,6 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--maximum-blue);
-    overflow: auto;
     animation: growin 1s 0s 1 forwards;
 }
 
