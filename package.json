@@ -1,0 +1,28 @@
+{
+  "name": "arrow_game_sql",
+  "version": "1.0.0",
+  "description": "Backend for ArrowGame",
+  "main": "./Backend/backend.js",
+  "scripts": {
+    "devstart": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahu7485/Dodge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahu7485/Dodge/issues"
+  },
+  "homepage": "https://github.com/Ahu7485/Dodge#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
