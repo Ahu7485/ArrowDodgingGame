@@ -23,6 +23,7 @@ function display_highest_score() {
     }, 1000);
 }
 
+
 function displayProfileButton(hasinfo) {
     var Profile_Button = document.createElement("li");
     Profile_Button.classList.add("user-info-button");
@@ -40,12 +41,35 @@ function displayProfileButton(hasinfo) {
         Profile_Button.appendChild(document.createTextNode("Sign-In"));
         Profile_Button.addEventListener('click', 
             function() {
-                document.cookie = "username= 111";
-                displayProfileButton(true);
+                let login = document.getElementById("login-wrapper");
+                login.animate([
+                    { opacity: '0%', visibility: 'collapse' },
+                    { opacity: '100%', visibility: 'visible'}
+                  ], {
+                    duration: 600,
+                    fill: "forwards"
+                  });
             }, false);
     }
     profile_div.innerHTML = '';
     profile_div.appendChild(Profile_Button);
+}
+
+//Closes Signin Popup if pressed
+function closeSignIn() {
+    let login = document.getElementById("login-wrapper");
+    login.animate([
+        { opacity: '100%', visibility: 'visible' },
+        { opacity: '0%', visibility: 'collapse' }
+      ], {
+        duration: 600,
+        fill: "forwards"
+      });
+}
+
+function showSignIn() {
+    let login = document.getElementById("login-wrapper");
+    login.style.visibility = "visible";
 }
 
 //Goes in Cookie and gets User Information

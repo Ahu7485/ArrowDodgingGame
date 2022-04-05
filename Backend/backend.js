@@ -8,6 +8,8 @@ app.use(express.json());
 // Storing users as Json
 const users = [];
 
+// Prints out all users
+// (For Testing Purposes)
 app.get('/users', (req, res) => {
     res.json(users)
 })
