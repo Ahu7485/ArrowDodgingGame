@@ -102,6 +102,18 @@ html {
     font-size: 60px;
 }
 
+.sidepannel {
+    font-size: 40px;
+    width: 400px;
+    height: 750px;
+    font-family:  Nunito;
+    position:   absolute;
+    top: 3em;
+    right: 2em;
+    border-style: solid;
+    text-align: center;
+}
+
 @media (max-width: 1500px) {
     .highestScore-Wrapper {
         visibility: hidden;
