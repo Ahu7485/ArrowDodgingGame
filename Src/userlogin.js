@@ -7,6 +7,14 @@ const profile_div = document.getElementById("profile");
 //  Displays "Profile" Button if login exist
 //  Else will show "Sign-In" and "Sign-Out" Button
 
+function signIn(event) {
+    event.preventDefault();
+}
+
+function signUp(event) {
+    event.preventDefault();
+}
+
 function getUserInfo() {
     getdata("username") == "" ? displayProfileButton(false) : displayProfileButton(true);
 }
@@ -28,6 +36,7 @@ function displayProfileButton(hasinfo) {
     var Profile_Button = document.createElement("li");
     Profile_Button.classList.add("user-info-button");
     //Creates Signin and Signout Button with different onclick functions
+    console.log(hasinfo);
     if(hasinfo){
         Profile_Button.appendChild(document.createTextNode("Sign-Out"));
         Profile_Button.addEventListener('click', 
@@ -96,4 +105,5 @@ function getdata(input) {
 window.onload = () => {
     getUserInfo();
     setTimeout(display_highest_score(), 1000);
+    refreshleaderboard();
 }

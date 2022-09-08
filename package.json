@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Ahu7485/Dodge#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "express": "^4.17.3",
     "mysql": "^2.18.1"

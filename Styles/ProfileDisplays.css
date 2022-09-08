@@ -9,8 +9,9 @@ Added for functions in ../Src/userlogin.js */
     border-radius: 25px;
 }
 
-.Profile {
+#profile {
     display: inline;
+    font-size: 50px;
 }
 
 .header-wrapper .user-info-button {
