@@ -1,0 +1,36 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ],
+      "route": "Signup/{username}"
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "findAccount",
+      "type": "sql",
+      "direction": "in",
+      "parameters": "@Username ={username}",
+      "commandText": "SELECT Username FROM [dbo].[User_Info] WHERE Username =@Username",
+      "commandType": "Text",
+      "connectionStringSetting": "SqlConnectionString"
+    },
+    {
+      "name": "makeAccount",
+      "type": "sql",
+      "direction": "out",
+      "commandText": "[dbo].[User_Info]",
+      "connectionStringSetting": "SqlConnectionString"
+    }
+  ]
+}

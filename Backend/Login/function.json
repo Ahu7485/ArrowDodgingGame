@@ -1,0 +1,35 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "getinfo",
+      "type": "sql",
+      "direction": "in",
+      "commandText": "SELECT TOP(1) [Username], [Userpass], [HighestScore] FROM [dbo].[User_Info] WHERE Username=@username",
+      "parameters": "@username={Query.username}",
+      "commandType": "Text",
+      "connectionStringSetting": "SqlConnectionString"
+    },
+    {
+      "name": "update",
+      "type": "sql",
+      "direction": "out",
+      "commandText": "UPDATE [dbo].[User_Info] SET HighestScore=@HighestScore",
+      "parameters": "@HighestScore={Query.highestscore},@Username={Query.username}",
+      "connectionStringSetting": "SqlConnectionString"
+    }
+  ]
+}
