@@ -1,9 +1,0 @@
-{
-  "IsEncrypted": false,
-  "Values": {
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "AzureWebJobsDashboard": "UseDevelopmentStorage=true",
-    "SqlConnectionString": "Server=tcp:arrow-game-svr.database.windows.net,1433;Initial Catalog=ArrowgameLeaderboard;Persist Security Info=False;User ID=arrowhost;Password=Arrowpass921;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-    "FUNCTIONS_WORKER_RUNTIME": "node"
-  }
-}
