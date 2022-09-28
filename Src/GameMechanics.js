@@ -180,15 +180,32 @@ function displayframes() {
     }
 
     player.move();
-    setTimeout ( () => {
+    setTimeout ( async () => {
         if (alive) {
             window.requestAnimationFrame(displayframes);
         } else {
             obstacles = [];
             let highestscore = getdata("highestscore");
-            if( highestscore <= score){
+            if( highestscore < score){
                 document.cookie = "highestscore=" + score;
                 document.getElementById("highestScore").innerHTML = score;
+                let username = getdata("username");
+                if(username != ""){
+                    let pass = getdata("passowrd"); 
+                    console.log(username);
+                    console.log(pass);
+                    let website = 'http://localhost:7071/api/Login/' + username;
+                    const result = await axios({
+                        method: 'post',
+                        url: website,
+                        data: {
+                            Username: username,
+                            Userpass: pass,
+                            HighestScore: score
+                        }
+                    });
+                    refreshleaderboard();
+                }
             }
             setTimeout(reshowstartpage(), 2000);
         }

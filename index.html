@@ -13,7 +13,6 @@
 <body>
     <div class="header-wrapper">
         <ul id="profile">
-          <li>test</li>
         </ul>
     </div>
 
@@ -47,14 +46,14 @@
 
         <div id="sign-up">
           <form action="" class="form">
-            <a href="#" class="close">&times;</a>
+            <a href="#" class="close" id="closesignupbtn">&times;</a>
             <h2>Sign Up</h2>
             <div class="input-group">
-              <input type="text" name="loginUser" id="loginUser" required>
+              <input type="text" name="loginUser" id="signinUser" required>
               <label for="loginUser">User Name</label>
             </div>
             <div class="input-group">
-              <input type="password" name="loginPassword" id="loginPassword" required>
+              <input type="password" name="loginPassword" id="signinPassword" required>
               <label for="loginPassword">Password</label>
             </div>
             <input type="submit" value="Sign-Up" class="submit-btn" onclick="signUp(event)">
@@ -75,6 +74,8 @@
     </div>
 
     <div class="highestScore-Wrapper">
+        <span id ="usernameDisplay"></span>
+        <span><br></span>
         <span>Highest Score<br></span>
         <span id="highestScore"></span>
     </div>

@@ -1,5 +1,3 @@
-//
-
 var stored_user_info = document.cookie;
 const profile_div = document.getElementById("profile");
 
@@ -7,12 +5,60 @@ const profile_div = document.getElementById("profile");
 //  Displays "Profile" Button if login exist
 //  Else will show "Sign-In" and "Sign-Out" Button
 
-function signIn(event) {
+async function signIn(event) {
     event.preventDefault();
+    let username = document.getElementById("loginUser").value;
+    let pass = document.getElementById("loginPassword").value;
+    let highestscore = getdata("highestscore");
+    let website = 'http://localhost:7071/api/Login/' + username;
+    const result = await axios({
+        method: 'post',
+        url: website,
+        data: {
+            Username: username,
+            Userpass: pass,
+            HighestScore: highestscore
+        }
+    });
+    if(result.data.length == 0){
+        alert("Wrong Information");
+    }else {
+        highestscore = result.data.HighestScore.toString();
+        document.cookie = "username= " + username;
+        document.cookie = "passowrd= " + pass;
+        document.cookie = "highestscore= " + highestscore;
+        closeSignIn();
+        displayProfileButton(true);
+    }
 }
 
-function signUp(event) {
+async function signUp(event) {
     event.preventDefault();
+    let username = document.getElementById("signinUser").value;
+    let pass = document.getElementById("signinPassword").value;
+    let highestscore = getdata("highestscore");
+    let website =  'http://localhost:7071/api/Signup/' + username;
+    const result = await axios({
+        method: 'post',
+        url: website,
+        data: {
+            Username: username,
+            Userpass: pass,
+            HighestScore: highestscore
+        }
+    });
+    if((result.data) == 'False'){
+        alert("Username Used");
+    }else {
+        document.cookie = "username= " + username;
+        document.cookie = "passowrd= " + pass;
+        document.getElementById('closesignupbtn').click();
+        closeSignIn();
+        displayProfileButton(true);
+        let y = document.getElementById("usernameDisplay");
+        let z = document.createTextNode(username);
+        y.appendChild(z);
+    }
 }
 
 function getUserInfo() {
@@ -24,19 +70,17 @@ function display_highest_score() {
     setTimeout( () => {
         var highestscore = getdata("highestscore");
         //Set Score to 0 for First Time Users
-        if(highestscore == "") {
+        if(highestscore == "" || highestscore =="null") {
             document.cookie = "highestscore=0";
         }
         document.getElementById("highestScore").innerHTML = highestscore;
     }, 1000);
 }
 
-
 function displayProfileButton(hasinfo) {
     var Profile_Button = document.createElement("li");
     Profile_Button.classList.add("user-info-button");
     //Creates Signin and Signout Button with different onclick functions
-    console.log(hasinfo);
     if(hasinfo){
         Profile_Button.appendChild(document.createTextNode("Sign-Out"));
         Profile_Button.addEventListener('click', 
@@ -45,6 +89,8 @@ function displayProfileButton(hasinfo) {
                 document.cookie = "passowrd= ";
                 displayProfileButton(false);
                 setTimeout(display_highest_score(), 1000);
+                document.getElementById("usernameDisplay").innerHTML = '';
+                document.cookie = "highestscore= 0"
             }, false);
     }else {
         Profile_Button.appendChild(document.createTextNode("Sign-In"));
@@ -101,9 +147,13 @@ function getdata(input) {
   return "";
 }
 
-
 window.onload = () => {
     getUserInfo();
     setTimeout(display_highest_score(), 1000);
     refreshleaderboard();
+    let y = document.getElementById("usernameDisplay");
+    let z = document.createTextNode(getdata("username"));
+    y.appendChild(z);
+    let username = getdata("username");
+    console.log(username);
 }
