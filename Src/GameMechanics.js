@@ -194,7 +194,7 @@ function displayframes() {
                     let pass = getdata("passowrd"); 
                     console.log(username);
                     console.log(pass);
-                    let website = 'http://localhost:7071/api/Login/' + username;
+                    let website = 'https://arrowgamebackend.azurewebsites.net/api/login/' + username;
                     const result = await axios({
                         method: 'post',
                         url: website,

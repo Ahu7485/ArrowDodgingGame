@@ -10,7 +10,7 @@ async function signIn(event) {
     let username = document.getElementById("loginUser").value;
     let pass = document.getElementById("loginPassword").value;
     let highestscore = getdata("highestscore");
-    let website = 'http://localhost:7071/api/Login/' + username;
+    let website = 'https://arrowgamebackend.azurewebsites.net/api/login/' + username;
     const result = await axios({
         method: 'post',
         url: website,
@@ -37,7 +37,7 @@ async function signUp(event) {
     let username = document.getElementById("signinUser").value;
     let pass = document.getElementById("signinPassword").value;
     let highestscore = getdata("highestscore");
-    let website =  'http://localhost:7071/api/Signup/' + username;
+    let website =  'https://arrowgamebackend.azurewebsites.net/api/signup/' + username;
     const result = await axios({
         method: 'post',
         url: website,

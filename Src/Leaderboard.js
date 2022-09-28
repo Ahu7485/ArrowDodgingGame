@@ -1,7 +1,7 @@
 
 async function refreshleaderboard() {
-    //const response = await axios.get('https://arrowgameleaderboard.azurewebsites.net/api/ShowLeaderboard');
-    const response = await axios.get('http://localhost:7071/api/ShowLeaderboard');
+    const response = await axios.get('https://arrowgamebackend.azurewebsites.net/api/showleaderboard');
+    //const response = await axios.get('http://localhost:7071/api/ShowLeaderboard');
     const data = response.data;
     //const data = await fetch('http://localhost:7071/api/ShowLeaderboard');
 
