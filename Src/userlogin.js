@@ -29,6 +29,9 @@ async function signIn(event) {
         document.cookie = "highestscore= " + highestscore;
         closeSignIn();
         displayProfileButton(true);
+        let y = document.getElementById("usernameDisplay");
+        let z = document.createTextNode(getdata("username"));
+        y.appendChild(z);
     }
 }
 
@@ -154,6 +157,4 @@ window.onload = () => {
     let y = document.getElementById("usernameDisplay");
     let z = document.createTextNode(getdata("username"));
     y.appendChild(z);
-    let username = getdata("username");
-    console.log(username);
 }

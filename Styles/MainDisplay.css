@@ -129,6 +129,9 @@ html {
     list-style-type: none;
     position: absolute;
 }
+.leaderboardList li {
+    margin-bottom: 11px;
+}
 
 #scorelist {
     right: 1em;
