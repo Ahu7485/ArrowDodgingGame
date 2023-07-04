@@ -30,9 +30,9 @@ like Username and Highest score reached.
     
 
 ## Some Issues
-    LeaderBoard may be may be blank due to Backend Servers not being used for a while.
-        -   Reason: SQL Servers turn off after an hour of inactivity, and requires some time to turn it back on.
-        -   Solution:  Refresh Page after a couple of ~10 seconds of opening the website.
+LeaderBoard may be may be blank due to Backend Servers not being used for a while.
+    -   Reason: SQL Servers turn off after an hour of inactivity, and requires some time to turn it back on.
+    -   Solution:  Refresh Page after a couple of ~10 seconds of opening the website.
 
 
     
